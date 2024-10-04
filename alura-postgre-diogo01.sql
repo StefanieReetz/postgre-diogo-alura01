@@ -25,14 +25,37 @@ INSERT INTO aluno (
 SELECT * FROM aluno
 
 UPDATE aluno
-    SET nome = 'Nico',
+    SET nome = 'Carlos Gabriel',
     cpf = '10987654321',
-    observacao = 'Teste',
-    idade = 38,
-    dinheiro = 15.23,
+    observacao = 'Nossaaaaa, que maneiro',
+    idade = 20,
+    dinheiro = 5.23,
     altura = 1.90,
-    ativo = FALSE,
+    ativo = TRUE,
     data_nascimento = '1980-01-15',
     hora_aula = '13:00:00',
     matriculado_em = '2020-01-02 15:00:00'
 WHERE id = 1;  
+
+SELECT nome AS "Nome do Aluno",
+	   idade,
+	   matriculado_em AS "Quando se matriculou"
+FROM aluno;
+
+ INSERT INTO aluno (nome) VALUES ('Ladybug');
+INSERT INTO aluno (nome) VALUES ('Catnoar');
+INSERT INTO aluno (nome) VALUES ('Josey Wales');
+INSERT INTO aluno (nome) VALUES ('Carlos Rafael Da Silva');
+
+SELECT *
+ FROM aluno
+ WHERE nome LIKE '% %';
+
+SELECT *
+ FROM aluno
+ WHERE idade BETWEEN 10 AND 40
+
+SELECT *
+ FROM aluno
+ WHERE nome LIKE 'C%r'
+    OR nome LIKE 'L%';
