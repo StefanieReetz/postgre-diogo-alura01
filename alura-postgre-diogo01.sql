@@ -1,4 +1,4 @@
-INSERT INTO aluno (
+/*INSERT INTO aluno (
     nome,
     cpf,
     observacao,
@@ -9,7 +9,7 @@ INSERT INTO aluno (
     data_nascimento,
     hora_aula,
     matriculado_em
-) VALUES (
+); VALUES (
     'Diogo',
     '12345678901',
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac dui et nisl vestibulum consequat. Integer vitae magna egestas, finibus libero dapibus, maximus magna. Fusce suscipit mi ut dui vestibulum, non vehicula felis fringilla. Vestibulum eget massa blandit, viverra quam non, convallis libero. Morbi ut nunc ligula. Duis tristique purus augue, nec sodales sem scelerisque dignissim. Sed vel rutrum mi. Nunc accumsan magna quis tempus rhoncus. Duis volutpat nulla a aliquet feugiat. Vestibulum rhoncus mi diam, eu consectetur sapien eleifend in. Donec sed facilisis velit. Duis tempus finibus venenatis. Mauris neque nisl, pulvinar eu volutpat eu, laoreet in massa. Quisque vestibulum eros ac tortor facilisis vulputate. Sed iaculis purus non sem tempus mollis. Curabitur felis lectus, aliquam id nunc ut, congue accumsan tellus.',
@@ -59,3 +59,82 @@ SELECT *
  FROM aluno
  WHERE nome LIKE 'C%r'
     OR nome LIKE 'L%';
+*/
+DROP TABLE aluno;
+DROP TABLE curso;
+DROP TABLE aluno_curso;
+
+	Create TABLE curso(
+	id integer PRIMARY KEY,
+	nome VARCHAR(255) NOT NULL
+	);
+
+	INSERT INTO curso(id, nome) VALUES (1, 'JavaScript');
+	INSERT INTO curso(id, nome) VALUES (2, 'Java');
+
+
+SELECT * FROM curso;
+SELECT * FROM aluno;
+
+CREATE TABLE aluno(
+	id SERIAL PRIMARY KEY,
+	nome VARCHAR(255) NOT NULL
+);
+
+INSERT INTO aluno(nome) VALUES ('Bolsonaro');
+INSERT INTO aluno(nome) VALUES ('Lula');
+
+CREATE TABLE aluno_curso(
+	aluno_id INTEGER,
+	curso_id INTEGER,
+	PRIMARY KEY (curso_id, aluno_id),
+	
+	FOREIGN KEY (aluno_id)
+	REFERENCES aluno (id),
+
+	FOREIGN KEY (curso_id)
+	REFERENCES curso (id)
+);
+
+INSERT INTO aluno_curso (aluno_id, curso_id) VALUES (1,1);
+
+INSERT INTO aluno_curso (aluno_id, curso_id) VALUES (2,1);
+
+
+SELECT aluno.nome AS aluno,
+	   curso.nome AS curso
+  FROM aluno
+  JOIN aluno_curso ON aluno_curso.aluno_id = aluno.id
+  JOIN curso       ON curso.id             = aluno_curso.curso_id
+
+  INSERT INTO aluno_curso(aluno_id, curso_id) VALUES (2, 2);
+
+  INSERT INTO aluno (nome) VALUES ('Zoro');
+
+  INSERT INTO curso (id, nome) VALUES (3, 'VSCODE');
+
+SELECT aluno.nome as "Nome do Aluno",
+        curso.nome as "Nome do Curso"
+    FROM aluno
+LEFT JOIN aluno_curso ON aluno_curso.aluno_id = aluno.id
+LEFT JOIN curso ON curso.id = aluno_curso.curso_id;
+
+
+SELECT aluno.nome as "Nome do Aluno",
+        curso.nome as "Nome do Curso"
+    FROM aluno
+RIGHT JOIN aluno_curso ON aluno_curso.aluno_id = aluno.id
+RIGHT JOIN curso ON curso.id = aluno_curso.curso_id;
+
+
+SELECT aluno.nome as "Nome do Aluno",
+        curso.nome as "Nome do Curso"
+    FROM aluno
+FULL JOIN aluno_curso ON aluno_curso.aluno_id = aluno.id
+FULL JOIN curso ON curso.id = aluno_curso.curso_id;
+
+
+SELECT aluno.nome as "Nome do Aluno",
+        curso.nome as "Nome do Curso"
+    FROM aluno
+CROSS JOIN curso;
