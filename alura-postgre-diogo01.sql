@@ -75,6 +75,7 @@ DROP TABLE aluno_curso;
 
 SELECT * FROM curso;
 SELECT * FROM aluno;
+SELECT * FROM aluno_curso;
 
 CREATE TABLE aluno(
 	id SERIAL PRIMARY KEY,
@@ -138,3 +139,40 @@ SELECT aluno.nome as "Nome do Aluno",
         curso.nome as "Nome do Curso"
     FROM aluno
 CROSS JOIN curso;
+
+DROP TABLE aluno_curso;
+
+CREATE TABLE aluno_curso (
+    aluno_id INTEGER,
+    curso_id INTEGER,
+    PRIMARY KEY (aluno_id, curso_id),
+
+    FOREIGN KEY (aluno_id)
+     REFERENCES aluno (id)
+     ON DELETE CASCADE
+	 ON UPDATE CASCADE,
+
+    FOREIGN KEY (curso_id)
+     REFERENCES curso (id)
+
+);
+
+SELECT 
+	   aluno.id   as "Id do Aluno",
+	   aluno.nome as "Nome do Aluno",
+	   curso.id   as "Id do Curso",
+       curso.nome as "Nome do Curso"
+    FROM aluno
+    JOIN aluno_curso ON aluno_curso.aluno_id = aluno.id
+    JOIN curso       ON curso.id             = aluno_curso.curso_id;
+
+
+
+	DELETE FROM aluno WHERE id = 4;
+
+	UPDATE aluno
+    SET id = 2
+    WHERE id = 10;
+
+
+	
