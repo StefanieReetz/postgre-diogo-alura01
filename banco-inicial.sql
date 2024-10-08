@@ -7,10 +7,15 @@ CREATE TABLE aluno (
 	data_nascimento DATE NOT NULL
 );
 
+DROP TABLE curso;
+DROP TABLE aluno_curso;
+DROP TABLE categoria;
+
 CREATE TABLE categoria (
     id SERIAL PRIMARY KEY,
-	nome VARCHAR(255) NOT NULL UNIQUE
+	nome VARCHAR(255) NOT NULL 
 );
+
 
 CREATE TABLE curso (
     id SERIAL PRIMARY KEY,
